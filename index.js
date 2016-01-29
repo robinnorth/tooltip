@@ -97,7 +97,7 @@ Tooltip.prototype.changeClassType = function (propName, newClass) {
 Tooltip.prototype.updateSize = function () {
 	if (this.hidden) {
 		this.element.style.visibility = 'hidden';
-		body.appendChild(this.element);
+		this.options.container.appendChild(this.element);
 	}
 	this.width = this.element.offsetWidth;
 	this.height = this.element.offsetHeight;
@@ -105,7 +105,7 @@ Tooltip.prototype.updateSize = function () {
 		? this.options.spacing
 		: parseNumber(style(this.element).top);
 	if (this.hidden) {
-		body.removeChild(this.element);
+		this.options.container.removeChild(this.element);
 		this.element.style.visibility = '';
 	} else {
 		this.position();
@@ -331,7 +331,7 @@ Tooltip.prototype.show = function () {
 	// Stop here if tip is already visible
 	if (this.hidden) {
 		this.hidden = false;
-		body.appendChild(this.element);
+		this.options.container.appendChild(this.element);
 	}
 
 	// Make Tooltip aware of window resize
@@ -370,7 +370,7 @@ Tooltip.prototype.hide = function () {
 	clearTimeout(this.aIndex);
 	this.aIndex = setTimeout(function () {
 		self.aIndex = 0;
-		body.removeChild(self.element);
+		self.options.container.removeChild(self.element);
 		self.hidden = true;
 	}, duration);
 
@@ -412,7 +412,7 @@ Tooltip.prototype._unaware = function () {
 Tooltip.prototype.destroy = function () {
 	clearTimeout(this.aIndex);
 	this._unaware();
-	if (!this.hidden) body.removeChild(this.element);
+	if (!this.hidden) this.options.container.removeChild(this.element);
 	this.element = this.options = null;
 };
 
@@ -469,5 +469,6 @@ Tooltip.defaults = {
 	place:       'top',     // Default place.
 	spacing:     null,      // Gap between target and Tooltip.
 	interactive: false,     // Whether Tooltip should be interactive, or click through.
-	auto:        0          // Whether to automatically adjust place to fit into window.
+	auto:        0,         // Whether to automatically adjust place to fit into window.,
+	container:   body       // Container DOM element
 };

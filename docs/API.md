@@ -19,13 +19,14 @@ Tooltip options object. Default options are stored in `Tooltip.defaults`.
 
 ```js
 Tooltip.defaults = {
-	baseClass:   'tooltip', // Base Tooltip class name.
-	typeClass:   null,      // Type Tooltip class name.
-	effectClass: null,      // Effect Tooltip class name.
-	inClass:     'in',      // Class used to transition stuff in.
-	place:       'top',     // Default place.
-	spacing:     null,      // Gap between target and Tooltip.
-	auto:        0          // Whether to automatically adjust place to fit into window.
+	baseClass:   'tooltip',    // Base Tooltip class name.
+	typeClass:   null,         // Type Tooltip class name.
+	effectClass: null,         // Effect Tooltip class name.
+	inClass:     'in',         // Class used to transition stuff in.
+	place:       'top',        // Default place.
+	spacing:     null,         // Gap between target and Tooltip.
+	auto:        0,            // Whether to automatically adjust place to fit into window.
+	container:   document.body // Container DOM element
 };
 ```
 
@@ -92,6 +93,12 @@ But can be overridden with this option.
 Type `Boolean` Default `false`
 
 When set to `true`, Tooltip will check whether the current requested place is possible to display within window borders, and if not, it'll try to pick a better one.
+
+##### container
+
+Type `HTMLElement` Default `document.body`
+
+DOM element to use as parent node for Tooltip. Note: no account is taken of parent positioning contexts, so unless you are sure you need to change this, leave it set to the default. Works best when targeting `x` and `y` coordinates in the container's positioning context.
 
 Unless stated otherwise, all methods return Tooltip object, making them chainable.
 
